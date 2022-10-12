@@ -1,0 +1,12 @@
+version: 0.2
+phases:
+  install:
+    runtime-versions:
+      python: 3.10
+  build:
+    commands:
+      - zip -g deployment_package.zip newlambda.py
+  post_build:
+    commands:
+      - echo Entered the post_build phase...
+      - aws lambda update-function-code --function-name QueryTest --zip-file fileb://deployment_package.zip
