@@ -3,8 +3,8 @@ image_tag=$1
 repository_name=$2
 
 echo "running scan-image findings..."
-echo "image tag: " $image_tag
-echo "repository_name: " $repository_name
+echo $image_tag
+echo $repository_name
 
 # Wait until scan is completed
 aws ecr wait image-scan-complete --repository-name "$repository_name"  --image-id imageTag="$image_tag"
