@@ -22,6 +22,6 @@ if [ $(echo $?) -eq 0 ]; then
         # aws ecr batch-delete-image --repository-name "$repository_name" --image-ids imageTag="$image_tag"
         exit 1
     else
-        echo "No critical or high level vulnerabilities found"
+        echo "Repo: $repository_name, image_tag: $image_tag, scan_results: No critical or high level vulnerabilities found" >> scan-results.out
       fi
 fi
