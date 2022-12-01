@@ -3,7 +3,7 @@ image_tag=$1
 repository_name=$2
 
 echo "running scan-image findings..."
-echo "imagte_tag: $image_tag"
+echo "image_tag: $image_tag"
 echo "repository_name: $repository_name"
 
 # Wait until scan is completed
@@ -18,6 +18,7 @@ if [ $(echo $?) -eq 0 ]; then
         echo "Docker image contains vulnerabilities at CRITICAL or HIGH level"
         echo $scan_results
         echo "Repo: $repository_name, image_tag: $image_tag, scan_results: $scan_results" >> scan-results.out
+        ls -la
         # if you want to delete the pushed image from container registry
         # aws ecr batch-delete-image --repository-name "$repository_name" --image-ids imageTag="$image_tag"
         exit 1
