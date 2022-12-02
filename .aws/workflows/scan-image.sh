@@ -24,6 +24,6 @@ if [ $(echo $?) -eq 0 ]; then
         export CODEBUILD_BUILD_SUCCEEDING=0
     else
         echo "No critical or high level vulnerabilities found"
-        #echo "Repo: $repository_name, image_tag: $image_tag, scan_results: No critical or high level vulnerabilities found" >> scan-results-$image_tag.out
+        echo "Repo: $repository_name, image_tag: $image_tag, scan_results: No critical or high level vulnerabilities found" >> scan-results-$image_tag.out
     fi
 fi
