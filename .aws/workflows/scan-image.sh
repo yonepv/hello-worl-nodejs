@@ -17,7 +17,7 @@ if [ $(echo $?) -eq 0 ]; then
     if [ "$critical" != null ] || [ "$high" != null ]; then
         echo "Docker image contains vulnerabilities at CRITICAL or HIGH level"
         echo $scan_results
-        echo "Repo: $repository_name, image_tag: $image_tag, scan_results: $scan_results" >> scan-results-$image_tag.out
+        echo "Repo: $repository_name, image_tag: $image_tag, scan_results: $scan_results" >> output/scan-results-$image_tag.out
         # if you want to delete the pushed image from container registry
         # aws ecr batch-delete-image --repository-name "$repository_name" --image-ids imageTag="$image_tag"
         #exit 1
