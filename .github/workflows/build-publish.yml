@@ -1,0 +1,17 @@
+on: [push]
+
+jobs:
+    build_publish_image:
+        runs-on: ubuntu-latest
+        name: A job to build and publish the image to a registry
+        steps:
+            - uses: actions/checkout@v4
+
+            - id: build
+              name: Build the image
+              uses: yonepv/hello-world-composite-action/publish-image-to-registry@main
+              with:
+                registry: ghcr.io
+                image-name: ${{ github.repository }}-${{ github.run_number }}
+                github-token: ${{ secrets.GITHUB_TOKEN }}         
+
