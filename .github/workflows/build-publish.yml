@@ -4,6 +4,11 @@ jobs:
     build_publish_image:
         runs-on: ubuntu-latest
         name: A job to build and publish the image to a registry
+
+        permissions:
+            attestations: write
+            id-token: write
+
         steps:
             - uses: actions/checkout@v4
 
