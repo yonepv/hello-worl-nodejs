@@ -8,7 +8,7 @@
   },
   "author": "Ranga",
   "dependencies": {
-    "express": "^4.18.3"
+    "express": "^4.19.2"
   },
   "devDependencies": {
     "webpack": "^4.41.5"
