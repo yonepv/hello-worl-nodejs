@@ -11,11 +11,12 @@ jobs:
             packages: write
 
         steps:
-            - uses: actions/checkout@v4
+            #- uses: actions/checkout@v4
 
             - id: build
               name: Build the image
-              uses: yonepv/hello-world-composite-action/publish-image-to-registry@V1.1
+              #uses: yonepv/hello-world-composite-action/publish-image-to-registry@V1.1
+              uses: yonepv/hello-world-composite-action/publish-image-to-registry@feature/wip-adjust-common-script-push-to-registry
               with:
                 registry: ghcr.io
                 image-name: ${{ github.repository }}-${{ github.run_number }}
