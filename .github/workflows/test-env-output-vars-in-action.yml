@@ -38,11 +38,10 @@ jobs:
         - name: Call to push to registry
           #uses: yonepv/hello-world-composite-action/publish-image-to-registry@feature/wip-adjust-common-script-push-to-registry
           uses: MCN-CQEN/ceai-cqen-commons/actions/publish-image-to-registry@feature/wip-add-params-repo-to-push-image-to-registry          
-          with:
-            registry: ghcr.io
-            image-name: ${{ env.REPO_NAME }}
+          with:            
+            image-name: ${{ github.repository }}
             github-token: '${{ secrets.GITHUB_TOKEN }}'    
-            tags: ${{ env.GITHUB_REPO_NAME }}:${{ env.GITHUB_SHA_SHORT }}  
+            tags: ${{ github.repository }}:${{ needs.test_env_output_vars_in_action.outputs.GITHUB_SHA_SHORT }}}, ${{ github.repository }}:latest
             push-to-registry: false     
         - name: Print docker images
           run: |
