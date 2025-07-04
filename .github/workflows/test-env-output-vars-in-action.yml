@@ -30,6 +30,7 @@ jobs:
       packages: write
       contents: read
       id-token: write
+      attestations: write
 
     steps:
         - name: Set env
