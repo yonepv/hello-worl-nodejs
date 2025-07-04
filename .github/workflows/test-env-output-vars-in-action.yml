@@ -32,16 +32,15 @@ jobs:
   call-to-push-to-registry:
     runs-on: ubuntu-latest
     name: Call to push to registry
-    needs: test_env_output_vars_in_action
-    if: needs.test_env_output_vars_in_action.outputs.REPO_NAME != '' && needs.test_env_output_vars_in_action.outputs.RUN_NUMBER != ''    
+    needs: test_env_output_vars_in_action    
 
     steps:
         - name: Call to push to registry
           #uses: yonepv/hello-world-composite-action/publish-image-to-registry@feature/wip-adjust-common-script-push-to-registry
-          uses: MCN-CQEN/ceai-cqen-commons/actions/publish-image-to-registry@feature/wip-add-params-repo-to-push-image-to-registry
+          uses: MCN-CQEN/ceai-cqen-commons/actions/publish-image-to-registry@feature/wip-add-params-repo-to-push-image-to-registry          
           with:
             registry: ghcr.io
-            image-name: ${{ env.REPO_NAME }}-${{ env.RUN_NUMBER }}
+            image-name: ${{ env.REPO_NAME }}-${{ env.GITHUB_SHA_SHORT }}
             github-token: '${{ secrets.GITHUB_TOKEN }}'       
             push-to-registry: false     
         - name: Print docker images
