@@ -40,8 +40,9 @@ jobs:
           uses: MCN-CQEN/ceai-cqen-commons/actions/publish-image-to-registry@feature/wip-add-params-repo-to-push-image-to-registry          
           with:
             registry: ghcr.io
-            image-name: ${{ env.REPO_NAME }}-${{ env.GITHUB_SHA_SHORT }}
-            github-token: '${{ secrets.GITHUB_TOKEN }}'       
+            image-name: ${{ env.REPO_NAME }}
+            github-token: '${{ secrets.GITHUB_TOKEN }}'    
+            tags: ${{ env.GITHUB_REPO_NAME }}:${{ env.GITHUB_SHA_SHORT }}  
             push-to-registry: false     
         - name: Print docker images
           run: |
