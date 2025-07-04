@@ -1,6 +1,11 @@
 name: Test environment output variables in action
-'on':
-  - push
+
+on: 
+    workflow_dispatch:   
+    push:
+        paths:
+            - .github/workflows/test-env-output-vars-in-action.yml                   
+
 jobs:
   test_env_output_vars_in_action:
     runs-on: ubuntu-latest
@@ -20,33 +25,3 @@ jobs:
           echo "RUN_NUMBER: ${{ env.RUN_NUMBER }} or $RUN_NUMBER"
           echo $REPO_NAME
           echo $RUN_NUMBER          
-
-
-  call-to-push-to-registry:
-    runs-on: ubuntu-latest
-    name: Call to push to registry
-
-    permissions:
-      packages: write
-      contents: read
-      id-token: write
-      attestations: write
-
-    steps:
-        - name: Set env
-          run: |
-            echo "GITHUB_SHA_SHORT=$(echo $GITHUB_SHA | cut -c 1-6)" >> $GITHUB_ENV
-        - name: Print env
-          run: |
-                echo $GITHUB_SHA_SHORT    
-
-        - name: Call to push to registry
-          #uses: yonepv/hello-world-composite-action/publish-image-to-registry@feature/wip-adjust-common-script-push-to-registry
-          uses: MCN-CQEN/ceai-cqen-commons/actions/publish-image-to-registry@feature/wip-add-params-repo-to-push-image-to-registry          
-          with:            
-            image-name: ${{ github.repository }}
-            github-token: '${{ secrets.GITHUB_TOKEN }}'    
-        - name: Print docker images
-          run: |
-            echo "Printing docker images..."
-            docker images
