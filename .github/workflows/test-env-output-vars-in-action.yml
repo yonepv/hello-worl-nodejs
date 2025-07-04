@@ -46,7 +46,6 @@ jobs:
           with:            
             image-name: ${{ github.repository }}
             github-token: '${{ secrets.GITHUB_TOKEN }}'    
-            push-to-registry: false     
         - name: Print docker images
           run: |
             echo "Printing docker images..."
