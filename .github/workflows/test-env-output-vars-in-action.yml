@@ -12,12 +12,12 @@ jobs:
           echo "Setting local environment variables..."
           echo "REPO_NAME=${{ github.repository }}" >> $GITHUB_ENV
           echo "RUN_NUMBER=${{ github.run_number }}" >> $GITHUB_ENV
-      - name: Print local environment variables
-        id: printLocalEnvVars
-        run: |
-          echo "Printing local environment variables set in the previous step:"
-          echo "REPO_NAME: ${{ env.REPO_NAME }} or $REPO_NAME"
-          echo "RUN_NUMBER: ${{ env.RUN_NUMBER }} or $RUN_NUMBER"
+    #   - name: Print local environment variables
+    #     id: printLocalEnvVars
+    #     run: |
+    #       echo "Printing local environment variables set in the previous step:"
+    #       echo "REPO_NAME: ${{ env.REPO_NAME }} or $REPO_NAME"
+    #       echo "RUN_NUMBER: ${{ env.RUN_NUMBER }} or $RUN_NUMBER"
 
       - name: Set env
         run: echo "GITHUB_SHA_SHORT=$(echo $GITHUB_SHA | cut -c 1-6)" >> $GITHUB_ENV
