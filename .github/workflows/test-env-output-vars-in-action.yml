@@ -13,7 +13,7 @@ jobs:
           echo "ENV_VAR_REPO_NAME=${{ github.repository }}" >> $GITHUB_ENV
           echo $ENV_VAR_REPO_NAME
           echo "ENV_VAR_RUN_NUMBER=${{ github.run_number }}" >> $GITHUB_ENV
-          echo $ENV_VAR_RUN_NUMBER"
+          echo $ENV_VAR_RUN_NUMBER
       - name: Print local environment variables
         id: printLocalEnvVars
         run: |
