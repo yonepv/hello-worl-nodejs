@@ -28,7 +28,8 @@ jobs:
 
     steps:
         - name: Set env
-          run: echo "GITHUB_SHA_SHORT=$(echo $GITHUB_SHA | cut -c 1-6)" >> $GITHUB_ENV
+          run: |
+            echo "GITHUB_SHA_SHORT=$(echo $GITHUB_SHA | cut -c 1-6)" >> $GITHUB_ENV
         - name: Print env
           run: |
                 echo $GITHUB_SHA_SHORT    
@@ -39,7 +40,7 @@ jobs:
           with:            
             image-name: ${{ github.repository }}
             github-token: '${{ secrets.GITHUB_TOKEN }}'    
-            tags: ${{ github.repository }}:${{ env.GITHUB_SHA_SHORT }}}, ${{ github.repository }}:latest
+            tags: ${{ github.repository }}:${{ github.sha }}}, ${{ github.repository }}:latest
             push-to-registry: false     
         - name: Print docker images
           run: |
