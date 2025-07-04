@@ -11,18 +11,20 @@ jobs:
         run: >
           echo "Setting local environment variables..."
           echo "ENV_VAR_REPO_NAME=${{ github.repository }}" >> $GITHUB_ENV
-          echo "printing ENV_VAR_REPO_NAME: $ENV_VAR_REPO_NAME or ${{ env.ENV_VAR_REPO_NAME }}"
           echo "ENV_VAR_RUN_NUMBER=${{ github.run_number }}" >> $GITHUB_ENV
-          echo "printing ENV_VAR_RUN_NUMBER: $ENV_VAR_RUN_NUMBER or ${{ env.ENV_VAR_RUN_NUMBER }}"
       - name: Print local environment variables
         id: printLocalEnvVars
         run: |
           echo "Printing local environment variables set in the previous step:"
           echo "ENV_VAR_REPO_NAME=${{ env.ENV_VAR_REPO_NAME }}"
           echo "ENV_VAR_RUN_NUMBER=${{ env.ENV_VAR_RUN_NUMBER }}"
+  
+  # run only if env.VAR_REPO_NAME and env.ENV_VAR_RUN_NUMBER are set
   call-to-push-to-registry:
     runs-on: ubuntu-latest
     name: Call to push to registry
+    needs: test_env_output_vars_in_action
+    if: needs.test_env_output_vars_in_action.outputs.ENV_VAR_REPO_NAME != '' && needs.test_env_output_vars_in_action.outputs.ENV_VAR_RUN_NUMBER != ''
 
     steps:
         - name: Call to push to registry
