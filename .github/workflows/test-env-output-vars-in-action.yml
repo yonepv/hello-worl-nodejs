@@ -26,6 +26,11 @@ jobs:
     runs-on: ubuntu-latest
     name: Call to push to registry
 
+    permissions:
+      packages: write
+      contents: read
+      id-token: write
+
     steps:
         - name: Set env
           run: |
