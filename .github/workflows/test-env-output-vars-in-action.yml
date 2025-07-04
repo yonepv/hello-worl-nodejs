@@ -10,21 +10,27 @@ jobs:
         id: setLocalEnvVars
         run: >
           echo "Setting local environment variables..."
-          echo "ENV_VAR_REPO_NAME=${{ github.repository }}" >> $GITHUB_ENV
-          echo "ENV_VAR_RUN_NUMBER=${{ github.run_number }}" >> $GITHUB_ENV
+          echo "REPO_NAME=${{ github.repository }}" >> $GITHUB_ENV
+          echo "RUN_NUMBER=${{ github.run_number }}" >> $GITHUB_ENV
       - name: Print local environment variables
         id: printLocalEnvVars
         run: |
           echo "Printing local environment variables set in the previous step:"
-          echo "ENV_VAR_REPO_NAME=${{ env.ENV_VAR_REPO_NAME }}"
-          echo "ENV_VAR_RUN_NUMBER=${{ env.ENV_VAR_RUN_NUMBER }}"
+          echo "REPO_NAME=${{ env.REPO_NAME }}"
+          echo "RUN_NUMBER=${{ env.RUN_NUMBER }}"
+
+      - name: Set env
+        run: echo "GITHUB_SHA_SHORT=$(echo $GITHUB_SHA | cut -c 1-6)" >> $GITHUB_ENV
+
+      - name: Test
+        run: echo $GITHUB_SHA_SHORT          
   
   # run only if env.VAR_REPO_NAME and env.ENV_VAR_RUN_NUMBER are set
   call-to-push-to-registry:
     runs-on: ubuntu-latest
     name: Call to push to registry
     needs: test_env_output_vars_in_action
-    if: needs.test_env_output_vars_in_action.outputs.ENV_VAR_REPO_NAME != '' && needs.test_env_output_vars_in_action.outputs.ENV_VAR_RUN_NUMBER != ''
+    if: needs.test_env_output_vars_in_action.outputs.REPO_NAME != '' && needs.test_env_output_vars_in_action.outputs.RUN_NUMBER != ''
 
     steps:
         - name: Call to push to registry
@@ -32,7 +38,7 @@ jobs:
           uses: MCN-CQEN/ceai-cqen-commons/actions/publish-image-to-registry@feature/wip-add-params-repo-to-push-image-to-registry
           with:
             registry: ghcr.io
-            image-name: ${{ env.ENV_VAR_REPO_NAME }}-${{ env.ENV_VAR_RUN_NUMBER }}
+            image-name: ${{ env.REPO_NAME }}-${{ env.RUN_NUMBER }}
             github-token: '${{ secrets.GITHUB_TOKEN }}'       
             push-to-registry: false     
         - name: Print docker images
