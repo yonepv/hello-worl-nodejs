@@ -1,0 +1,36 @@
+# Workflow to show the use of environement variables, output variables between jobs and steps
+# and how to use them in a composite action.
+name: Test environment output variables in action
+
+on: [push]
+
+jobs:
+  test_env_output_vars_in_action:
+    runs-on: ubuntu-latest
+    name: A job to test environment output variables in action
+
+    steps:
+        - name: Set local environment variables
+          id: setLocalEnvVars
+          run: |
+            echo "Setting local environment variables..."
+            echo "ENV_VAR_REPO_NAME=${{ github.repository }}" >> $GITHUB_ENV
+            echo "ENV_VAR_REPO_NAME has a value of: ${{ env.ENV_VAR_REPO_NAME }} or just $ENV_VAR_REPO_NAME"
+            echo "ENV_VAR_RUN_NUMBER=${{ github.run_number }}" >> $GITHUB_ENV
+            echo "ENV_VAR_RUN_NUMBER has a value of: ${{ env.ENV_VAR_RUN_NUMBER }}"
+            echo "ENV_VAR_JOB_NAME=${{ job.name }}" >> $GITHUB_ENV
+            echo "ENV_VAR_JOB_NAME has a value of: ${{ env.ENV_VAR_JOB_NAME }}"
+            echo "ENV_VAR_STEP_NAME=${{ steps.setLocalEnvVars.name }}" >> $GITHUB_ENV
+            echo "ENV_VAR_STEP_NAME has a value of: ${{ env.ENV_VAR_STEP_NAME }}"
+          shell: bash
+
+        - name: Print local environment variables
+          id: printLocalEnvVars
+          run: |
+            echo "Printing local environment variables set in the previous step:"
+            echo "ENV_VAR_REPO_NAME=${{ env.ENV_VAR_REPO_NAME }}"
+            echo "ENV_VAR_RUN_NUMBER=${{ env.ENV_VAR_RUN_NUMBER }}"
+            echo "ENV_VAR_JOB_NAME=${{ env.ENV_VAR_JOB_NAME }}"
+            echo "ENV_VAR_STEP_NAME=${{ env.ENV_VAR_STEP_NAME }}"
+
+        
